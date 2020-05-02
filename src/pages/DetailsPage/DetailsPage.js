@@ -26,6 +26,10 @@ class DetailsPage extends Component {
     ? this.setState({ isMobile: true })
     : this.setState({ isMobile: false })
  }
+ // This to handle scrolling top when choosing one of the genres from movie sidemen
+  scrollTo = () => {
+    return window.scrollTo(500, 500);
+  }
  // this function to make a request that reflects data which active in specific country
   handleClick = (slug) => {
     axios.get(`${this.state.api_url}${slug}/status/confirmed`)
@@ -51,6 +55,7 @@ class DetailsPage extends Component {
         <List
           list={this.state.countries}
           handleClick={this.handleClick}
+          scrollTo={this.scrollTo}
           title="countries"
         />
       </div>

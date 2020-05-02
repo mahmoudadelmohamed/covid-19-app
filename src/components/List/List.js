@@ -5,15 +5,13 @@ import "./List.scss";
 
 class List extends Component {
   render() {
-    const { list, handleClick, title } = this.props;
+    const { list, handleClick, title, scrollTo } = this.props;
     const list_items = list.map(({ Country: country, Slug: slug }) => {
       return (
         <li
           className={`list_item mb-2 `}
           key={slug}
-          onClick={() => {
-            handleClick(slug);
-          }}
+          onClick={() => { handleClick(slug); scrollTo()}}
         >
           <a rel="noopener noreferrer">
             <Button
