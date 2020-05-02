@@ -17,7 +17,7 @@ class DetailsPage extends Component {
       countries_request: `https://api.covid19api.com/countries`,
       api_url: `https://api.covid19api.com/live/country/`,
       isMobile: null,
-      active_id: 'EG'
+
     };
       window.addEventListener('resize', this.changeMobile)
   }
@@ -26,20 +26,17 @@ class DetailsPage extends Component {
     ? this.setState({ isMobile: true })
     : this.setState({ isMobile: false })
  }
-  handleChange = (e) => {
-    this.setState({
-      search: e.target.value,
-    });
-  };
-  handleClick = (name, id) => {
-      axios.get(`${this.state.api_url}${id}/status/confirmed`)
-        .then(response => {
-          this.setState({
-            cases: [...response.data]
-          })
+ // this function to make a request that reflects data which active in specific country
+  handleClick = (slug) => {
+    axios.get(`${this.state.api_url}${slug}/status/confirmed`)
+      .then(response => {
+        this.setState({
+          cases: [...response.data]
         })
+      })
   };
   componentDidMount() {
+    // this function to make a request that reflects data which all countries
     axios.get(this.state.countries_request)
       .then(response => {
         this.setState({
@@ -54,17 +51,16 @@ class DetailsPage extends Component {
         <List
           list={this.state.countries}
           handleClick={this.handleClick}
-          active_id={this.state.active_id}
           title="countries"
         />
       </div>
     )
   }
   checkDisplay = (type) => {
+    // re-rendering side menu
      return this.renderMenu();
   }
   render() {
-    console.log(this.state.cases.length);
     return (
         <>
         <Container fluid>
